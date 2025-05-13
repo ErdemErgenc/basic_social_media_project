@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
-  void logout() {
-    FirebaseAuth.instance.signOut();
+  void logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      '/login_register_page',
+      (route) => false,
+    );
   }
 
   @override
@@ -121,10 +126,7 @@ class MyDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pop(context);
-
-                // Logout the user
-
-                logout();
+                logout(context);
               },
             ),
           ),
